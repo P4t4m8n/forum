@@ -2,3 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+.link-btn {
+  width: 5rem;
+  height: 5rem;
+  display: block;
+}
+.link-btn svg {
+  object-fit: cover;
+  background-color: white;
+  border-radius: 0.5rem;
+  width: 5rem;
+  height: 5rem;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  transition: clip-path .25s, filter 0.25s;
+}
+
+.link-btn:hover {
+  z-index: 20;
+  svg {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    transition: clip-path 0.25s, filter 0.25s;
+  }
+}

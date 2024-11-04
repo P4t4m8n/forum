@@ -1,5 +1,5 @@
 import { IEntity } from "./app.model";
-import { IUserSmall } from "./User.model";
+import { IUserSmall } from "./user.model";
 
 interface ICommentBase extends IEntity {
   content: string;

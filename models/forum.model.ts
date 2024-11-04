@@ -1,6 +1,6 @@
 import { IEntity } from "./app.model";
 import { IPost } from "./post.model";
-import { IUserSmall } from "./User.model";
+import { IUserSmall } from "./user.model";
 
 interface IForumBase extends IEntity {
   title: string;
@@ -12,7 +12,7 @@ interface IForumBase extends IEntity {
 export interface IForum extends IForumBase {
   admins: IUserSmall[];
   posts: IPost[];
-  _count?: { posts: number; uniqueView: number };
+  count?: { posts: number; uniqueView: number };
 }
 export interface IForumDto extends IForumBase {
   admins: string[];

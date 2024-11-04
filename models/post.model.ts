@@ -1,6 +1,6 @@
 import { IEntity } from "./app.model";
 import { IComment } from "./comments.model";
-import { IUserSmall } from "./User.model";
+import { IUserSmall } from "./user.model";
 
 interface IPostBase extends IEntity {
   title: string;
