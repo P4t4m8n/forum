@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { StarkWolfSvg } from "../../icons/svgs";
 import ForumInfo from "./ForumInfo";
-import TopPosts from "./TopPosts";
+import TopPosts from "./TopPosts/TopPosts";
 
 interface Props {
   forum: IForumSmall;
