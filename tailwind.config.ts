@@ -12,6 +12,9 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      gridTemplateColumns: {
+        "forum-preview": "6rem 16rem 1fr",
+      },
     },
   },
   plugins: [],

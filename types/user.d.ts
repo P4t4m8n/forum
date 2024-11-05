@@ -1,21 +1,19 @@
-import { IEntity } from "./app.model";
-
-export interface IUserSmall extends IEntity {
+declare interface IUserSmall extends IEntity {
   imgUrl: string;
   username: string;
   permission?: string;
 }
-export interface IUser extends IUserSmall {
+declare interface IUser extends IUserSmall {
   email: string;
   firstName?: string;
   lastName?: string;
 }
-export interface IUserDto extends IUser {
+declare interface IUserDto extends IUser {
   password?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
-export interface IUserFilter extends IEntity {
+declare interface IUserFilter extends IEntity {
   username?: string;
   id?: string;
   email?: string;

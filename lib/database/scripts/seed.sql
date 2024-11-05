@@ -1,149 +1,64 @@
--- Insert users
-INSERT INTO
-    users (
-        username,
-        email,
-        password,
-        first_name,
-        last_name,
-        permission
-    )
-VALUES
-    (
-        'john_doe',
-        'john@example.com',
-        'password123',
-        'John',
-        'Doe',
-        1
-    ),
-    (
-        'jane_smith',
-        'jane@example.com',
-        'password123',
-        'Jane',
-        'Smith',
-        2
-    ),
-    (
-        'alice_wonder',
-        'alice@example.com',
-        'password123',
-        'Alice',
-        'Wonder',
-        0
-    );
+/* cSpell:disable */
 
--- Insert forums
-INSERT INTO
-    forums (title, description, type, subjects)
-VALUES
-    (
-        'General Discussion',
-        'A place for general topics and discussions.',
-        'public',
-        ARRAY['General', 'Discussion']
-    ),
-    (
-        'Tech Talk',
-        'Discuss the latest in technology and gadgets.',
-        'public',
-        ARRAY['Technology', 'Gadgets']
-    ),
-    (
-        'Private Group',
-        'A restricted forum for select members.',
-        'restricted',
-        ARRAY['Private', 'Members Only']
-    );
+-- Insert demo users
+INSERT INTO users (id, username, email, password, first_name, last_name, permission)
+VALUES 
+    (uuid_generate_v4(), 'johndoe', 'johndoe@example.com', 'password', 'John', 'Doe', 1),
+    (uuid_generate_v4(), 'janedoe', 'janedoe@example.com', 'password', 'Jane', 'Doe', 1),
+    (uuid_generate_v4(), 'bobsmith', 'bobsmith@example.com', 'password', 'Bob', 'Smith', 0),
+    (uuid_generate_v4(), 'alicesmith', 'alicesmith@example.com', 'password', 'Alice', 'Smith', 0);
 
--- Insert forum admins
-INSERT INTO
-    forum_admins (forum_id, admin_id)
-VALUES
-    (1, 1), -- John Doe is an admin of General Discussion
-    (2, 2), -- Jane Smith is an admin of Tech Talk
-    (3, 3);
+-- Insert demo forums
+INSERT INTO forums (id, title, description, type, subjects)
+VALUES 
+    (uuid_generate_v4(), 'Tech Forum', 'A forum about technology', 'public', '{Technology, Gadgets}'),
+    (uuid_generate_v4(), 'Cooking Forum', 'A place to discuss recipes and cooking tips', 'public', '{Cooking, Recipes}'),
+    (uuid_generate_v4(), 'Travel Forum', 'Share your travel experiences and tips', 'public', '{Travel, Adventure}');
 
--- Alice Wonder is an admin of Private Group
--- Insert posts
-INSERT INTO
-    posts (
-        forum_id,
-        title,
-        content,
-        tags,
-        is_pinned,
-        author_id
-    )
-VALUES
-    (
-        1,
-        'Welcome to the Forum!',
-        'Feel free to introduce yourself and share your thoughts.',
-        ARRAY['Welcome', 'Intro'],
-        TRUE,
-        1
-    ),
-    (
-        1,
-        'Forum Rules',
-        'Please read and follow the forum rules.',
-        ARRAY['Rules', 'Community'],
-        TRUE,
-        2
-    ),
-    (
-        2,
-        'New Gadgets 2024',
-        'What new tech are you excited about this year?',
-        ARRAY['Technology', 'Gadgets'],
-        FALSE,
-        2
-    ),
-    (
-        3,
-        'Private Group Guidelines',
-        'Only approved members are allowed here.',
-        ARRAY['Guidelines', 'Private'],
-        TRUE,
-        3
-    );
+-- Insert forum admins (assigning each user as an admin to different forums)
+INSERT INTO forum_admins (forum_id, admin_id)
+SELECT f.id, u.id
+FROM forums f
+JOIN users u ON u.username IN ('johndoe', 'janedoe')
+LIMIT 4;
 
--- Insert comments
-INSERT INTO
-    comments (post_id, parent_id, content, author_id)
-VALUES
-    (1, NULL, 'Thanks for the welcome!', 2), -- Jane Smith comments on the welcome post
-    (1, NULL, 'Excited to be here!', 3), -- Alice Wonder comments on the welcome post
-    (
-        3,
-        NULL,
-        'I can’t wait to see the latest smartphones!',
-        1
-    );
+-- Insert demo posts in each forum
+INSERT INTO posts (id, forum_id, title, content, author_id)
+VALUES 
+    (uuid_generate_v4(), (SELECT id FROM forums WHERE title = 'Tech Forum'), 'Best Laptops 2024', 'Lets discuss the best laptops of 2024.', (SELECT id FROM users WHERE username = 'johndoe')),
+    (uuid_generate_v4(), (SELECT id FROM forums WHERE title = 'Tech Forum'), 'Future of AI', 'What do you think about AIs role in the future?', (SELECT id FROM users WHERE username = 'janedoe')),
+    (uuid_generate_v4(), (SELECT id FROM forums WHERE title = 'Cooking Forum'), 'Best Pasta Recipes', 'Share your best pasta recipes!', (SELECT id FROM users WHERE username = 'bobsmith')),
+    (uuid_generate_v4(), (SELECT id FROM forums WHERE title = 'Travel Forum'), 'Top Destinations for 2024', 'Where should we travel in 2024?', (SELECT id FROM users WHERE username = 'alicesmith'));
 
--- John Doe comments on New Gadgets 2024
--- Insert unique views
-INSERT INTO
-    unique_views (
-        forum_id,
-        post_id,
-        comment_id,
-        user_id,
-        visiter_id,
-        unique_view_count
-    )
-VALUES
-    (1, NULL, NULL, 1, 'visitor_123', 1), -- Unique view for forum 1 by visitor 123
-    (1, 1, NULL, 2, 'visitor_456', 1), -- Unique view for post 1 by visitor 456
-    (2, 3, NULL, 3, 'visitor_789', 2);
+-- Insert comments for each post
+INSERT INTO comments (id, post_id, content, author_id)
+VALUES 
+    (uuid_generate_v4(), (SELECT id FROM posts WHERE title = 'Best Laptops 2024'), 'I think the new MacBook Pro is great!', (SELECT id FROM users WHERE username = 'janedoe')),
+    (uuid_generate_v4(), (SELECT id FROM posts WHERE title = 'Future of AI'), 'AI will change everything, but there are risks.', (SELECT id FROM users WHERE username = 'bobsmith')),
+    (uuid_generate_v4(), (SELECT id FROM posts WHERE title = 'Best Pasta Recipes'), 'I love carbonara!', (SELECT id FROM users WHERE username = 'alicesmith')),
+    (uuid_generate_v4(), (SELECT id FROM posts WHERE title = 'Top Destinations for 2024'), 'Paris is always a good idea!', (SELECT id FROM users WHERE username = 'johndoe'));
 
--- Unique view for post 3 by visitor 789
--- Insert likes
-INSERT INTO
-    likes (post_id, comment_id, user_id)
-VALUES
-    (1, NULL, 2), -- Jane Smith likes the welcome post
-    (2, NULL, 1), -- John Doe likes the Forum Rules post
-    (3, NULL, 3); -- Alice Wonder likes the New Gadgets 2024 post
+-- Insert likes for posts and comments
+INSERT INTO likes (id, post_id, user_id)
+VALUES 
+    (uuid_generate_v4(), (SELECT id FROM posts WHERE title = 'Best Laptops 2024'), (SELECT id FROM users WHERE username = 'alicesmith')),
+    (uuid_generate_v4(), (SELECT id FROM posts WHERE title = 'Future of AI'), (SELECT id FROM users WHERE username = 'bobsmith')),
+    (uuid_generate_v4(), (SELECT id FROM posts WHERE title = 'Best Pasta Recipes'), (SELECT id FROM users WHERE username = 'johndoe'));
+
+INSERT INTO likes (id, comment_id, user_id)
+VALUES 
+    (uuid_generate_v4(), (SELECT id FROM comments WHERE content = 'I think the new MacBook Pro is great!'), (SELECT id FROM users WHERE username = 'bobsmith')),
+    (uuid_generate_v4(), (SELECT id FROM comments WHERE content = 'Paris is always a good idea!'), (SELECT id FROM users WHERE username = 'alicesmith'));
+
+-- Insert unique views for posts
+INSERT INTO unique_views (id, forum_id, post_id, user_id, unique_view_count)
+VALUES 
+    (uuid_generate_v4(), (SELECT id FROM forums WHERE title = 'Tech Forum'), (SELECT id FROM posts WHERE title = 'Best Laptops 2024'), (SELECT id FROM users WHERE username = 'bobsmith'), 5),
+    (uuid_generate_v4(), (SELECT id FROM forums WHERE title = 'Tech Forum'), (SELECT id FROM posts WHERE title = 'Future of AI'), (SELECT id FROM users WHERE username = 'alicesmith'), 3),
+    (uuid_generate_v4(), (SELECT id FROM forums WHERE title = 'Cooking Forum'), (SELECT id FROM posts WHERE title = 'Best Pasta Recipes'), (SELECT id FROM users WHERE username = 'janedoe'), 7);
+
+-- Insert unique views for comments
+INSERT INTO unique_views (id, comment_id, user_id, unique_view_count)
+VALUES 
+    (uuid_generate_v4(), (SELECT id FROM comments WHERE content = 'I think the new MacBook Pro is great!'), (SELECT id FROM users WHERE username = 'alicesmith'), 2),
+    (uuid_generate_v4(), (SELECT id FROM comments WHERE content = 'Paris is always a good idea!'), (SELECT id FROM users WHERE username = 'bobsmith'), 1);

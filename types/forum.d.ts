@@ -1,24 +1,27 @@
-import { IEntity } from "./app.model";
-import { IPost } from "./post.model";
-import { IUserSmall } from "./user.model";
-
 interface IForumBase extends IEntity {
   title: string;
   description: string;
   type: string;
   subjects: string[];
   createdAt?: Date;
+  totalPosts?: number | null;
+  viewCount?: number | null;
 }
-export interface IForum extends IForumBase {
+
+declare interface IForumSmall extends IForumBase {
+  latestPost: IPostSmall|null;
+  likedPost: IPostSmall|null;
+  viewedPost: IPostSmall|null;
+}
+declare interface IForum extends IForumBase {
   admins: IUserSmall[];
   posts: IPost[];
-  count?: { posts: number; uniqueView: number };
 }
-export interface IForumDto extends IForumBase {
+declare interface IForumDto extends IForumBase {
   admins: string[];
   updatedAt?: Date;
 }
-export interface IForumFilter extends IEntity {
+declare interface IForumFilter extends IEntity {
   title?: string;
   postName?: string;
   type?: string;
@@ -28,4 +31,3 @@ export interface IForumFilter extends IEntity {
   uniqueView?: number;
   sortBy?: "createdAt" | "updatedAt" | "uniqueView" | "asc" | "desc";
 }
-

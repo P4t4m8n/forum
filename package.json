@@ -7,27 +7,35 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "jest",
     "migrate": "node lib/database/scripts/createMigration.js",
-    "db:truncate": "psql -U postgres -d forum -f lib/database/scripts/seed.sql",
-    "db:migrate": "bash migrations/migrate.sh",
+    "db:purge": "psql -U postgres -d forum -f lib/database/scripts/purge.sql",
+    "db:clean": "psql -U postgres -d forum -f lib/database/scripts/truncate.sql",
+    "db:migrate": "node lib/database/scripts/dbMigrate.js",
     "db:seed": "psql -U postgres -d forum -f lib/database/scripts/seed.sql",
-    "db:reset": "npm run db:truncate && npm run db:migrate && npm run db:seed"
+    "db:reset": "npm run db:truncate && npm run db:migrate && npm run db:seed",
+    "db:create": "psql -U postgres -d forum -f lib/database/schema.sql"
   },
   "dependencies": {
     "next": "15.0.2",
     "pg": "^8.13.1",
     "react": "19.0.0-rc-02c0e824-20241028",
-    "react-dom": "19.0.0-rc-02c0e824-20241028"
+    "react-dom": "19.0.0-rc-02c0e824-20241028",
+    "xss": "^1.0.15"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "^20",
     "@types/pg": "^8.11.10",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "15.0.2",
+    "jest": "^29.7.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

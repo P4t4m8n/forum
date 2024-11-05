@@ -5,21 +5,27 @@ import { IUserSmall } from "./user.model";
 interface IPostBase extends IEntity {
   title: string;
   content: string;
-  forumId: string;
-  tags: string[];
-  isPinned?: boolean;
   createdAt?: Date;
-  updatedAt?: Date;
+  viewCount?: number;
+  likeCount?: number;
 }
-export interface IPost extends IPostBase {
+
+export interface IPostSmall extends IPostBase {
   author: IUserSmall;
-  comments?: IComment[];
-  _count?: { comments?: number; uniqueView?: number };
+  lastCommentAt?: Date;
 }
-export interface IPostDto extends IPostBase {
+export interface IPost extends IPostSmall {
+  isPinned?: boolean;
+  comments?: IComment[];
+  tags: string[];
+  updatedAt?: Date;
+  commentsAmount?: number;
+}
+export interface IPostDto extends IPostSmall {
   createdAt?: Date;
   updatedAt?: Date;
   authorId: string;
+  forumId: string;
 }
 export interface IPostFilter extends IEntity {
   title?: string;

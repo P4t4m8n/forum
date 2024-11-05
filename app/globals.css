@@ -3,24 +3,30 @@
 @tailwind utilities;
 
 .link-btn {
-  width: 5rem;
-  height: 5rem;
-  display: block;
+  @apply w-20 h-20 block;
 }
 .link-btn svg {
-  object-fit: cover;
-  background-color: white;
-  border-radius: 0.5rem;
-  width: 5rem;
-  height: 5rem;
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  transition: clip-path .25s, filter 0.25s;
+  @apply w-full h-full rounded bg-white;
+
+  clip-path: circle(50% at 50% 50%);
+  transition: clip-path 0.5s;
 }
 
 .link-btn:hover {
-  z-index: 20;
   svg {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-    transition: clip-path 0.25s, filter 0.25s;
+    clip-path: circle(100% at 50% 50%);
+    transition: clip-path 0.5s;
   }
+}
+
+.forum-list a:not(:first-of-type):not(:last-of-type) {
+  @apply border-b border-l border-r border-gray-500 ;
+}
+
+.forum-list a:first-of-type {
+  @apply border border-gray-500 rounded-lg rounded-b-none;
+}
+
+.forum-list a:last-of-type {
+  @apply border-b border-l border-r border-gray-500 rounded-lg rounded-t-none;
 }
