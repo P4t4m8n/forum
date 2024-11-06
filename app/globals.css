@@ -30,3 +30,4 @@
 .forum-list a:last-of-type {
   @apply border-b border-l border-r border-gray-500 rounded-lg rounded-t-none;
 }
+

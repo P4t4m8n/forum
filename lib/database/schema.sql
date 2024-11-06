@@ -6,8 +6,15 @@ CREATE TABLE forums (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
     title VARCHAR(255) DEFAULT 'New Forum',
     description TEXT DEFAULT 'New Forum Description',
-    type VARCHAR(50) NOT NULL CHECK (type IN ('public', 'private', 'restricted')),
-    subjects TEXT[] NOT NULL DEFAULT '{General}',
+    type VARCHAR(50) NOT NULL CHECK (
+        type IN (
+            'resource sharing',
+            'moderator',
+            'tech support',
+            'discussions',
+            'admin'
+        )
+    ),
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -37,13 +44,31 @@ CREATE TABLE forum_admins (
     PRIMARY KEY (forum_id, admin_id)
 );
 
--- Posts Table
-CREATE TABLE posts (
+-- Threads Table
+CREATE TABLE threads (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
     forum_id UUID REFERENCES forums (id) ON DELETE CASCADE,
     title VARCHAR(255) NOT NULL,
+    description TEXT DEFAULT 'New Forum Description',
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NULL,
+    author_id UUID REFERENCES users (id) NOT NULL
+);
+
+-- Forum Moderators (Junction Table for Many-to-Many Relationship)
+CREATE TABLE thread_moderators (
+    thread_id UUID REFERENCES threads (id) ON DELETE CASCADE,
+    admin_id UUID REFERENCES users (id) ON DELETE CASCADE,
+    PRIMARY KEY (thread_id, admin_id)
+);
+
+-- Posts Table
+CREATE TABLE posts (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
+    thread UUID REFERENCES threads (id) ON DELETE CASCADE,
+    title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    tags TEXT[] DEFAULT '{other}',
+    tags TEXT[] DEFAULT '{}',
     is_pinned BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NULL,

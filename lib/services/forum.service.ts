@@ -1,5 +1,3 @@
-import { IForum, IForumDto } from "@/models/forum.model";
-
 const toDTO = (forum: IForum): IForumDto => {
   const { admins, ...rest } = forum;
   return { ...rest, admins: admins.map((a) => a?.id || "") };
@@ -8,10 +6,9 @@ const toDTO = (forum: IForum): IForumDto => {
 const getEmpty = (): IForum => ({
   title: "",
   description: "",
-  type: "public",
+  type: "discussions",
   admins: [],
-  subjects: ["general"],
-  posts: [],
+  threads: [],
 });
 
 export const forumService: TServiceConfig<IForum, IForumDto> = {

@@ -5,9 +5,10 @@ interface Props {
 export default function Input({ field }: Props) {
   const { type, name, label, placeholder, defaultValue, ...rest } = field;
   return (
-    <div key={name} className="form-group">
+    <div key={name} className=" flex flex-col w-full gap-1">
       <label htmlFor={name}>{label}</label>
       <input
+        className="bg-inherit border rounded p-1 font-semibold "
         type={type}
         name={name}
         id={name}

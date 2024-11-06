@@ -13,7 +13,7 @@ export default async function ForumEditServer({
 }) {
   const { forumId } = await params;
 
-  let forum;
+  let forum:IForum;
 
   if (forumId === "new") {
     forum = forumService.getEmpty();
@@ -40,14 +40,12 @@ export default async function ForumEditServer({
       username: "bobsmith",
     },
   ];
-  const types = ["public", "private"];
-  const subjects = ["general", "news", "events", "announcements"];
-  return (
-    <ForumEditIndex
-      forum={forum}
-      admins={admins}
-      types={types}
-      subjects={subjects}
-    />
-  );
+  const types = [
+    "resource sharing",
+    "moderator",
+    "tech support",
+    "discussions",
+    "admin",
+  ];
+  return <ForumEditIndex forum={forum} admins={admins} types={types} />;
 }

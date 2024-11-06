@@ -1,10 +1,9 @@
 interface Props {
-  list: string[];
   field: Field;
   error?: string;
 }
 
-export default function CheckboxList({ list, field, error }: Props) {
+export default function CheckboxList({ field, error }: Props) {
   const { name, label, defaultValue } = field;
   return (
     <div>
@@ -12,20 +11,25 @@ export default function CheckboxList({ list, field, error }: Props) {
         {label}
         {error && <p className="text-red-500 text-sm">{error}</p>}
       </label>
-      <ul className="">
-        {list.map((item) => (
-          <li key={item} className="">
+      <ul className=" flex flex-warp gap-8 items-center  border p-4 rounded border-gray-900">
+        {field?.options?.map((option) => (
+          <li key={option.value} className="">
             <input
               type="checkbox"
-              id={item}
+              id={option.value}
               name={name}
-              value={item}
-              defaultChecked={(defaultValue as string[])?.includes(item)}
-              className=""
+              value={option.value}
+              className="peer hidden"
+              defaultChecked={(defaultValue as string[])?.includes(
+                option.value
+              )}
             />
 
-            <label htmlFor={item} className="f">
-              <span>{item}</span>
+            <label
+              htmlFor={option.value}
+              className="flex-col w-32 border border-transparent peer-checked:border-slate-700  hover:border-white flex items-center gap-2 rounded-md px-4 py-2 cursor-pointer transition-all "
+            >
+              {option.display}
             </label>
           </li>
         ))}

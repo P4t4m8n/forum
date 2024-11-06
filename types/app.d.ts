@@ -2,7 +2,7 @@ declare interface Field {
   name: string;
   type: string;
   label: React.ReactNode;
-  options?: { value: string; display?: string }[];
+  options?: { value: string; display?: React.ReactNode }[];
   placeholder?: string;
   defaultValue: string | boolean | string[] | boolean[] | number;
 }

@@ -5,6 +5,7 @@ import { CheckBox } from "./Form/CheckBox";
 import Radio from "./Form/Radio";
 import Select from "./Form/Select";
 import CheckboxList from "./Form/CheckboxList";
+import GeneralBtn from "./GeneralBtn";
 
 interface DynamicFormProps {
   schema: Field[];
@@ -39,22 +40,21 @@ const GeneralForm: React.FC<DynamicFormProps> = ({ schema, onSubmit }) => {
       case "radio":
         return <Radio field={field} key={field.name} />;
       case "multiSelectCheckBox":
-        return (
-          <CheckboxList
-            key={field.name}
-            field={field}
-            list={field?.options?.map((option) => option.value) || []}
-          />
-        );
+        return <CheckboxList key={field.name} field={field} />;
       default:
         return null;
     }
   };
 
   return (
-    <form className="bg-white" onSubmit={handleSubmit}>
+    <form
+      className="text-white flex flex-col   gap-6 forum-form"
+      onSubmit={handleSubmit}
+    >
       {schema.map((field) => renderField(field))}
-      <button type="submit">Submit</button>
+      <div className="self-center">
+        <GeneralBtn btnType="submit">Submit</GeneralBtn>
+      </div>
     </form>
   );
 };

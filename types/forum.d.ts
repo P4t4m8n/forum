@@ -2,20 +2,12 @@ interface IForumBase extends IEntity {
   title: string;
   description: string;
   type: string;
-  subjects: string[];
   createdAt?: Date;
-  totalPosts?: number | null;
-  viewCount?: number | null;
 }
 
-declare interface IForumSmall extends IForumBase {
-  latestPost: IPostSmall|null;
-  likedPost: IPostSmall|null;
-  viewedPost: IPostSmall|null;
-}
 declare interface IForum extends IForumBase {
   admins: IUserSmall[];
-  posts: IPost[];
+  threads: IThreadSmall[];
 }
 declare interface IForumDto extends IForumBase {
   admins: string[];
