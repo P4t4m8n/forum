@@ -38,13 +38,6 @@ export const validateForumDto = (
   );
   if (typeError) errors.type = typeError;
 
-  const subjectsError = validationService.validateArrayLength(
-    forumDto.subjects || [],
-    1,
-    "Subject"
-  );
-  if (subjectsError) errors.subjects = subjectsError;
-
   const adminsError = validationService.validateArrayLength(
     forumDto.admins || [],
     1,

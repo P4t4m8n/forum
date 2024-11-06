@@ -5,9 +5,6 @@ export const sanitizeForumForm = (formData: FormData): IForumDto => {
     const title = xss(formData.get("title")?.toString() || "");
     const description = xss(formData.get("description")?.toString() || "");
     const type = xss(formData.get("type")?.toString() || "");
-    const subjects = formData
-      .getAll("subjects")
-      .map((subject) => xss(subject.toString()));
     const admins = formData
       .getAll("admins")
       .map((admin) => xss(admin.toString()));
@@ -17,7 +14,6 @@ export const sanitizeForumForm = (formData: FormData): IForumDto => {
       title,
       description,
       type,
-      subjects,
       admins,
       id,
     };

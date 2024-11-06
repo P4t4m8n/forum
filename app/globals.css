@@ -20,7 +20,7 @@
 }
 
 .forum-list a:not(:first-of-type):not(:last-of-type) {
-  @apply border-b border-l border-r border-gray-500 ;
+  @apply border-b border-l border-r border-gray-500;
 }
 
 .forum-list a:first-of-type {
@@ -30,4 +30,11 @@
 .forum-list a:last-of-type {
   @apply border-b border-l border-r border-gray-500 rounded-lg rounded-t-none;
 }
-
+/* 
+.after-name::after {
+  content: "";
+  height: 10rem;
+  display: block;
+  width: 1px;
+  border: 1px solid white;
+} */

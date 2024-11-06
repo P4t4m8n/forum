@@ -1,64 +1,351 @@
-/* cSpell:disable */
+INSERT INTO
+    types (type)
+VALUES
+    ('resource sharing'),
+    ('moderator'),
+    ('tech support'),
+    ('discussions'),
+    ('admin');
 
 -- Insert demo users
-INSERT INTO users (id, username, email, password, first_name, last_name, permission)
-VALUES 
-    (uuid_generate_v4(), 'johndoe', 'johndoe@example.com', 'password', 'John', 'Doe', 1),
-    (uuid_generate_v4(), 'janedoe', 'janedoe@example.com', 'password', 'Jane', 'Doe', 1),
-    (uuid_generate_v4(), 'bobsmith', 'bobsmith@example.com', 'password', 'Bob', 'Smith', 0),
-    (uuid_generate_v4(), 'alicesmith', 'alicesmith@example.com', 'password', 'Alice', 'Smith', 0);
+INSERT INTO
+    users (
+        username,
+        email,
+        password_hash,
+        first_name,
+        last_name,
+        permission,
+        img_url
+    )
+VALUES
+    (
+        'johndoe',
+        'johndoe@example.com',
+        'password', -- Replace with hashed password in production
+        'John',
+        'Doe',
+        1,
+        'https://res.cloudinary.com/dpnevk8db/image/upload/v1727205327/igor-karimov-lPLqDlnhxbE-unsplash_hfnaer.jpg'
+    ),
+    (
+        'janedoe',
+        'janedoe@example.com',
+        'password', -- Replace with hashed password in production
+        'Jane',
+        'Doe',
+        1,
+        'https://res.cloudinary.com/dpnevk8db/image/upload/v1727205327/igor-karimov-lPLqDlnhxbE-unsplash_hfnaer.jpg'
+    ),
+    (
+        'bobsmith',
+        'bobsmith@example.com',
+        'password', -- Replace with hashed password in production
+        'Bob',
+        'Smith',
+        0,
+        'https://res.cloudinary.com/dpnevk8db/image/upload/v1727205327/igor-karimov-lPLqDlnhxbE-unsplash_hfnaer.jpg'
+    ),
+    (
+        'alicesmith',
+        'alicesmith@example.com',
+        'password', -- Replace with hashed password in production
+        'Alice',
+        'Smith',
+        0,
+        'https://res.cloudinary.com/dpnevk8db/image/upload/v1727205327/igor-karimov-lPLqDlnhxbE-unsplash_hfnaer.jpg'
+    );
 
--- Insert demo forums
-INSERT INTO forums (id, title, description, type, subjects)
-VALUES 
-    (uuid_generate_v4(), 'Tech Forum', 'A forum about technology', 'public', '{Technology, Gadgets}'),
-    (uuid_generate_v4(), 'Cooking Forum', 'A place to discuss recipes and cooking tips', 'public', '{Cooking, Recipes}'),
-    (uuid_generate_v4(), 'Travel Forum', 'Share your travel experiences and tips', 'public', '{Travel, Adventure}');
+-- Insert Forums
+INSERT INTO
+    forums (title, description, created_at, updated_at)
+VALUES
+    (
+        'Lore and History',
+        'Discussion about the lore and history of the Game of Thrones universe.',
+        NOW(),
+        NOW()
+    ),
+    (
+        'TV Show',
+        'Discussion about the Game of Thrones TV show.',
+        NOW(),
+        NOW()
+    ),
+    (
+        'Books',
+        'Discussion about the Game of Thrones books.',
+        NOW(),
+        NOW()
+    ),
+    (
+        'Fan Creations',
+        'Share and discuss fan-made creations.',
+        NOW(),
+        NOW()
+    ),
+    (
+        'Quizzes and Challenges',
+        'Participate in quizzes and challenges.',
+        NOW(),
+        NOW()
+    );
 
--- Insert forum admins (assigning each user as an admin to different forums)
-INSERT INTO forum_admins (forum_id, admin_id)
-SELECT f.id, u.id
-FROM forums f
-JOIN users u ON u.username IN ('johndoe', 'janedoe')
-LIMIT 4;
+-- Assign 'johndoe' as admin to all forums
+INSERT INTO
+    forum_admins (forum_id, admin_id)
+SELECT
+    f.id,
+    u.id
+FROM
+    forums f,
+    users u
+WHERE
+    u.username = 'johndoe';
 
--- Insert demo posts in each forum
-INSERT INTO posts (id, forum_id, title, content, author_id)
-VALUES 
-    (uuid_generate_v4(), (SELECT id FROM forums WHERE title = 'Tech Forum'), 'Best Laptops 2024', 'Lets discuss the best laptops of 2024.', (SELECT id FROM users WHERE username = 'johndoe')),
-    (uuid_generate_v4(), (SELECT id FROM forums WHERE title = 'Tech Forum'), 'Future of AI', 'What do you think about AIs role in the future?', (SELECT id FROM users WHERE username = 'janedoe')),
-    (uuid_generate_v4(), (SELECT id FROM forums WHERE title = 'Cooking Forum'), 'Best Pasta Recipes', 'Share your best pasta recipes!', (SELECT id FROM users WHERE username = 'bobsmith')),
-    (uuid_generate_v4(), (SELECT id FROM forums WHERE title = 'Travel Forum'), 'Top Destinations for 2024', 'Where should we travel in 2024?', (SELECT id FROM users WHERE username = 'alicesmith'));
+-- Insert Threads
+-- Threads Data
+WITH
+    threads_data AS (
+        SELECT
+            'Lore and History' AS forum_title,
+            'Characters' AS thread_title,
+            'Discuss characters from the series.' AS description
+        UNION ALL
+        SELECT
+            'Lore and History',
+            'Events',
+            'Discuss major events in the lore.'
+        UNION ALL
+        SELECT
+            'Lore and History',
+            'Factions',
+            'Discuss the different factions and houses.'
+        UNION ALL
+        SELECT
+            'TV Show',
+            'Episode Discussions',
+            'Discuss individual episodes.'
+        UNION ALL
+        SELECT
+            'TV Show',
+            'Cast and Crew',
+            'Talk about the actors and production team.'
+        UNION ALL
+        SELECT
+            'TV Show',
+            'Speculations',
+            'Share your speculations about the show.'
+        UNION ALL
+        SELECT
+            'Books',
+            'Book Series Discussion',
+            'General discussion about the book series.'
+        UNION ALL
+        SELECT
+            'Books',
+            'Theories',
+            'Share and discuss theories.'
+        UNION ALL
+        SELECT
+            'Books',
+            'Winds of Winter',
+            'Discuss the upcoming book.'
+        UNION ALL
+        SELECT
+            'Fan Creations',
+            'Art and Videos',
+            'Share your artwork and videos.'
+        UNION ALL
+        SELECT
+            'Fan Creations',
+            'Fanfiction',
+            'Share and discuss fanfiction.'
+        UNION ALL
+        SELECT
+            'Fan Creations',
+            'Projects',
+            'Collaborate on fan projects.'
+        UNION ALL
+        SELECT
+            'Quizzes and Challenges',
+            'Trivia Games',
+            'Participate in trivia games.'
+        UNION ALL
+        SELECT
+            'Quizzes and Challenges',
+            'User-Created Quizzes',
+            'Share your own quizzes.'
+    )
+INSERT INTO
+    threads (
+        forum_id,
+        title,
+        description,
+        created_at,
+        updated_at
+    )
+SELECT
+    f.id,
+    td.thread_title,
+    td.description,
+    NOW(),
+    NOW()
+FROM
+    threads_data td
+    JOIN forums f ON f.title = td.forum_title;
 
--- Insert comments for each post
-INSERT INTO comments (id, post_id, content, author_id)
-VALUES 
-    (uuid_generate_v4(), (SELECT id FROM posts WHERE title = 'Best Laptops 2024'), 'I think the new MacBook Pro is great!', (SELECT id FROM users WHERE username = 'janedoe')),
-    (uuid_generate_v4(), (SELECT id FROM posts WHERE title = 'Future of AI'), 'AI will change everything, but there are risks.', (SELECT id FROM users WHERE username = 'bobsmith')),
-    (uuid_generate_v4(), (SELECT id FROM posts WHERE title = 'Best Pasta Recipes'), 'I love carbonara!', (SELECT id FROM users WHERE username = 'alicesmith')),
-    (uuid_generate_v4(), (SELECT id FROM posts WHERE title = 'Top Destinations for 2024'), 'Paris is always a good idea!', (SELECT id FROM users WHERE username = 'johndoe'));
+-- Assign 'janedoe' as moderator to all threads in 'Lore and History'
+INSERT INTO
+    thread_moderators (thread_id, admin_id)
+SELECT
+    t.id,
+    u.id
+FROM
+    threads t
+    JOIN forums f ON t.forum_id = f.id
+    JOIN users u ON u.username = 'janedoe'
+WHERE
+    f.title = 'Lore and History';
 
--- Insert likes for posts and comments
-INSERT INTO likes (id, post_id, user_id)
-VALUES 
-    (uuid_generate_v4(), (SELECT id FROM posts WHERE title = 'Best Laptops 2024'), (SELECT id FROM users WHERE username = 'alicesmith')),
-    (uuid_generate_v4(), (SELECT id FROM posts WHERE title = 'Future of AI'), (SELECT id FROM users WHERE username = 'bobsmith')),
-    (uuid_generate_v4(), (SELECT id FROM posts WHERE title = 'Best Pasta Recipes'), (SELECT id FROM users WHERE username = 'johndoe'));
+-- Insert Posts
+-- Posts Data
+WITH
+    posts_data AS (
+        SELECT
+            'Characters' AS thread_title,
+            'Favorite Characters' AS post_title,
+            'Who are your favorite characters and why?' AS content,
+            'bobsmith' AS author
+        UNION ALL
+        SELECT
+            'Episode Discussions',
+            'Season Finale Thoughts',
+            'Let''s discuss the season finale!',
+            'alicesmith'
+    )
+INSERT INTO
+    posts (
+        thread_id,
+        title,
+        content,
+        created_at,
+        updated_at,
+        author_id
+    )
+SELECT
+    t.id,
+    pd.post_title,
+    pd.content,
+    NOW(),
+    NOW(),
+    u.id
+FROM
+    posts_data pd
+    JOIN threads t ON t.title = pd.thread_title
+    JOIN users u ON u.username = pd.author;
 
-INSERT INTO likes (id, comment_id, user_id)
-VALUES 
-    (uuid_generate_v4(), (SELECT id FROM comments WHERE content = 'I think the new MacBook Pro is great!'), (SELECT id FROM users WHERE username = 'bobsmith')),
-    (uuid_generate_v4(), (SELECT id FROM comments WHERE content = 'Paris is always a good idea!'), (SELECT id FROM users WHERE username = 'alicesmith'));
+-- Insert Comments
+-- First, insert root comments (parent_id IS NULL)
+INSERT INTO
+    comments (
+        post_id,
+        parent_id,
+        content,
+        created_at,
+        updated_at,
+        author_id
+    )
+SELECT
+    p.id,
+    NULL,
+    'I really like Tyrion because of his wit.',
+    NOW(),
+    NOW(),
+    u.id
+FROM
+    posts p
+    JOIN users u ON u.username = 'alicesmith'
+WHERE
+    p.title = 'Favorite Characters';
 
--- Insert unique views for posts
-INSERT INTO unique_views (id, forum_id, post_id, user_id, unique_view_count)
-VALUES 
-    (uuid_generate_v4(), (SELECT id FROM forums WHERE title = 'Tech Forum'), (SELECT id FROM posts WHERE title = 'Best Laptops 2024'), (SELECT id FROM users WHERE username = 'bobsmith'), 5),
-    (uuid_generate_v4(), (SELECT id FROM forums WHERE title = 'Tech Forum'), (SELECT id FROM posts WHERE title = 'Future of AI'), (SELECT id FROM users WHERE username = 'alicesmith'), 3),
-    (uuid_generate_v4(), (SELECT id FROM forums WHERE title = 'Cooking Forum'), (SELECT id FROM posts WHERE title = 'Best Pasta Recipes'), (SELECT id FROM users WHERE username = 'janedoe'), 7);
+-- Then, insert replies
+INSERT INTO
+    comments (
+        post_id,
+        parent_id,
+        content,
+        created_at,
+        updated_at,
+        author_id
+    )
+SELECT
+    p.id,
+    c.id,
+    'Yes, Tyrion is amazing! His dialogues are the best.',
+    NOW(),
+    NOW(),
+    u.id
+FROM
+    posts p
+    JOIN comments c ON c.post_id = p.id
+    AND c.content = 'I really like Tyrion because of his wit.'
+    JOIN users u ON u.username = 'bobsmith'
+WHERE
+    p.title = 'Favorite Characters';
 
--- Insert unique views for comments
-INSERT INTO unique_views (id, comment_id, user_id, unique_view_count)
-VALUES 
-    (uuid_generate_v4(), (SELECT id FROM comments WHERE content = 'I think the new MacBook Pro is great!'), (SELECT id FROM users WHERE username = 'alicesmith'), 2),
-    (uuid_generate_v4(), (SELECT id FROM comments WHERE content = 'Paris is always a good idea!'), (SELECT id FROM users WHERE username = 'bobsmith'), 1);
+-- Insert Post Likes
+-- 'bobsmith' likes 'Season Finale Thoughts' Post
+INSERT INTO
+    post_likes (post_id, user_id, created_at)
+SELECT
+    p.id,
+    u.id,
+    NOW()
+FROM
+    posts p
+    JOIN users u ON u.username = 'bobsmith'
+WHERE
+    p.title = 'Season Finale Thoughts';
+
+-- 'alicesmith' likes 'Favorite Characters' Post
+INSERT INTO
+    post_likes (post_id, user_id, created_at)
+SELECT
+    p.id,
+    u.id,
+    NOW()
+FROM
+    posts p
+    JOIN users u ON u.username = 'alicesmith'
+WHERE
+    p.title = 'Favorite Characters';
+
+-- Insert Post Views
+-- 'bobsmith' views 'Favorite Characters' Post
+INSERT INTO
+    post_views (post_id, user_id, visitor_id, unique_view_count)
+SELECT
+    p.id,
+    u.id,
+    NULL,
+    1
+FROM
+    posts p
+    JOIN users u ON u.username = 'bobsmith'
+WHERE
+    p.title = 'Favorite Characters';
+
+-- 'alicesmith' views 'Season Finale Thoughts' Post
+INSERT INTO
+    post_views (post_id, user_id, visitor_id, unique_view_count)
+SELECT
+    p.id,
+    u.id,
+    NULL,
+    1
+FROM
+    posts p
+    JOIN users u ON u.username = 'alicesmith'
+WHERE
+    p.title = 'Season Finale Thoughts';

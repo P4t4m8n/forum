@@ -21,5 +21,5 @@ declare interface IUserFilter extends IEntity {
   page?: number;
   firstName?: string;
   lastName?: string;
-  permission?: string;
+  permission?: number;
 }

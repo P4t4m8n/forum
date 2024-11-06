@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import React from "react";
 import Input from "./Form/Input";
 import TextArea from "./Form/TextArea";
 import { CheckBox } from "./Form/CheckBox";
@@ -13,13 +13,13 @@ interface DynamicFormProps {
 }
 
 const GeneralForm: React.FC<DynamicFormProps> = ({ schema, onSubmit }) => {
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    if (onSubmit) {
-      onSubmit(formData);
-    }
-  };
+  // const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   const formData = new FormData(e.currentTarget);
+  //   if (onSubmit) {
+  //     onSubmit(formData);
+  //   }
+  // };
 
   const renderField = (field: Field) => {
     const { type } = field;
@@ -49,7 +49,7 @@ const GeneralForm: React.FC<DynamicFormProps> = ({ schema, onSubmit }) => {
   return (
     <form
       className="text-white flex flex-col   gap-6 forum-form"
-      onSubmit={handleSubmit}
+      action={onSubmit}
     >
       {schema.map((field) => renderField(field))}
       <div className="self-center">

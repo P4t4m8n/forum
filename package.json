@@ -10,10 +10,10 @@
     "test": "jest",
     "migrate": "node lib/database/scripts/createMigration.js",
     "db:purge": "psql -U postgres -d forum -f lib/database/scripts/purge.sql",
-    "db:clean": "psql -U postgres -d forum -f lib/database/scripts/truncate.sql",
+    "db:truncate": "psql -U postgres -d forum -f lib/database/scripts/truncate.sql",
     "db:migrate": "node lib/database/scripts/dbMigrate.js",
     "db:seed": "psql -U postgres -d forum -f lib/database/scripts/seed.sql",
-    "db:reset": "npm run db:truncate && npm run db:migrate && npm run db:seed",
+    "db:reset": "npm run db:truncate && npm run db:purge && npm run db:create ",
     "db:create": "psql -U postgres -d forum -f lib/database/schema.sql"
   },
   "dependencies": {

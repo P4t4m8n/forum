@@ -1,7 +1,15 @@
-TRUNCATE TABLE likes,
-unique_views,
+TRUNCATE TABLE 
 comments,
 posts,
 forum_admins,
 forums,
+types,
+forum_types,
+threads,
+thread_moderators,
+forum_views ,
+post_views,
+comment_views,
+post_likes,
+comment_likes,
 users RESTART IDENTITY CASCADE;

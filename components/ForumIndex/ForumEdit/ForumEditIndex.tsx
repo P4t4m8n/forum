@@ -63,20 +63,20 @@ export default function ForumEditIndex({ forum, admins, types }: Props) {
     },
   ];
 
-  const onSubmit = async (formData: FormData) => {
-    try {
-      await saveForum(formData);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const onSubmit = async (formData: FormData) => {
+  //   try {
+  //     await saveForum(formData);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <div className="px-[20vw] py-6">
       <h2 className="text-white pb-2 mb-2 text-lg font-medium border-b border-gray-900 ">
         {forum?.id ? "Edit Forum," : "Create Forum"}
       </h2>
-      <GeneralForm schema={schema} onSubmit={onSubmit} />
+      <GeneralForm schema={schema} onSubmit={saveForum} />
     </div>
   );
 }

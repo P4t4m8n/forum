@@ -7,7 +7,8 @@ interface IForumBase extends IEntity {
 
 declare interface IForum extends IForumBase {
   admins: IUserSmall[];
-  threads: IThreadSmall[];
+  threads: IThread[];
+  totalPosts: number;
 }
 declare interface IForumDto extends IForumBase {
   admins: string[];
@@ -17,7 +18,6 @@ declare interface IForumFilter extends IEntity {
   title?: string;
   postName?: string;
   type?: string;
-  subject?: string[];
   take?: number;
   skip?: number;
   uniqueView?: number;
