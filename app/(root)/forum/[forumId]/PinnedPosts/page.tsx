@@ -7,6 +7,5 @@ export default async function PinnedPosts({
 }) {
   const { forumId } = await params;
   const pinnedPosts = await getPinnedPosts(forumId);
-  console.log("pinnedPosts:", pinnedPosts);
   return <div>page</div>;
 }

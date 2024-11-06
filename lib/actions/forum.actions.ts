@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import pool from "../database/config";
 import { sanitizeForumForm } from "../sanitize/forum.sanitize";
 import { validateForumDto } from "../validations/forum.validation";
@@ -14,7 +15,7 @@ export const saveForum = async (formData: FormData) => {
 
   const forum = dto?.id ? await updateForum(dto) : await createForum(dto);
 
-  return forum;
+  redirect(`/forums/${forum.id}`);
 };
 
 export async function createForum(dto: IForumDto) {
@@ -52,7 +53,7 @@ export async function createForum(dto: IForumDto) {
     }
 
     await client.query("COMMIT");
-    console.log("Forum created with admins successfully.");
+    console.info("Forum created with admins successfully.");
     return forum;
   } catch (error) {
     await client.query("ROLLBACK");
@@ -111,7 +112,7 @@ export async function updateForum(dto: IForumDto) {
     }
 
     await client.query("COMMIT");
-    console.log("Forum updated with admins successfully.");
+    console.info("Forum updated with admins successfully.");
     return forum;
   } catch (error) {
     await client.query("ROLLBACK");

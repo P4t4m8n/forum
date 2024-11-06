@@ -7,6 +7,5 @@ export default async function Posts({
 }) {
   const { forumId } = await params;
   const posts = await getNonPinnedPostsPaginated(forumId);
-  console.log("posts:", posts);
   return <div>page</div>;
 }

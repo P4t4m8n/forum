@@ -44,7 +44,6 @@ export async function getPinnedPosts(forumId: string) {
     `;
 
   const result = await pool.query(query, [forumId]);
-  console.log("result:", result);
   return result.rows.map((row) => row.json_build_object);
 }
 

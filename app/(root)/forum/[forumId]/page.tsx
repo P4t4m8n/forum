@@ -8,6 +8,5 @@ export default async function ForumDetailsServer({
   const { forumId } = await params;
 
   const forum: IForum = await getForumById(forumId);
-  console.log("forum:", forum)
   return <div>page</div>;
 }

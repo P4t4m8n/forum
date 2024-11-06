@@ -65,8 +65,7 @@ export default function ForumEditIndex({
 
   const onSubmit = async (formData: FormData) => {
     try {
-      const x = await saveForum(formData);
-      console.log(" x:", x);
+      await saveForum(formData);
     } catch (error) {
       console.error(error);
     }
