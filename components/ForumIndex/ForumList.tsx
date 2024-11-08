@@ -1,7 +1,7 @@
 import ForumPreview from "./ForumPreview/ForumPreview";
 
 interface Props {
-  forums: IForum[];
+  forums: IForumSmall[];
 }
 const ForumList = ({ forums }: Props) => {
   return (

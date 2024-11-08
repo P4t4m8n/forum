@@ -1,25 +1,17 @@
-import Link from "next/link";
-import { StarkWolfSvg } from "../../icons/svgs";
-import ForumInfo from "./ForumInfo";
-import TopPosts from "./TopPosts/TopPosts";
+import ThreadList from "./ThreadList";
 
 interface Props {
-  forum: IForum;
+  forum: IForumSmall;
 }
 const ForumPreview = ({ forum }: Props) => {
-  const { description, title, id, admins, threads, totalPosts } = forum;
-  console.log("threads:", threads)
+  const { title, threads } = forum;
 
-  // const posts = [latestPost, likedPost, viewedPost];
   return (
-    <div className="text-white flex">
-      <h2 className="border-b w-64 h-fit after-name">{title}</h2>
-      <div className="w-[1px] h-32 border mt-6"></div>
-      <ul>
-        {threads.map((thread) => (
-          <li key={thread.id}></li>
-        ))}
-      </ul>
+    <div className="text-white fill-white  shadow-white flex items-center p-4">
+      <div>
+        <h2 className=" text-xl font-semibold w-80 ">{title}</h2>
+      </div>
+      <ThreadList threads={threads} />
     </div>
   );
 };

@@ -9,7 +9,8 @@ declare interface IThreadSmall extends IThreadBase {
   likedPost: IPostSmall | null;
   viewedPost: IPostSmall | null;
   postCount: number | null;
-  likedPost: number | null;
+  likeCount: number | null;
+  forumId: string;
 }
 declare interface IThread extends IThreadBase {
   admins: IUserSmall[];

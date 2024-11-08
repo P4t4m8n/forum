@@ -12,10 +12,8 @@ export const saveForum = async (formData: FormData) => {
   if (errors.title || errors.description || errors.type || errors.admins) {
     throw errors;
   }
-  console.log("dto:", dto);
 
   const forum = dto?.id ? await updateForum(dto) : await createForum(dto);
-  console.log("forum:", forum);
 
   redirect(`/forum/${forum.id}`);
 };
@@ -35,7 +33,6 @@ export async function createForum(dto: IForumDto) {
     const forumValues = [title, description, type];
     const forumResult = await client.query(forumQuery, forumValues);
     const forum = forumResult.rows[0];
-    console.log("forum:", forum);
 
     if (admins && admins.length > 0) {
       const adminInsertValues: string[] = [];
@@ -157,7 +154,7 @@ export async function deleteForum(id: number) {
   return result.rows[0];
 }
 
-export async function getForums(): Promise<IForum[]> {
+export async function getForums(): Promise<IForumSmall[]> {
   const query = `
     SELECT 
       f.id,
@@ -193,6 +190,7 @@ export async function getForums(): Promise<IForum[]> {
             'id', t.id,
             'title', t.title,
             'description', t.description,
+            'forumId', t.forum_id,
 
             -- Total Posts in the Thread
             'postCount', (
@@ -337,5 +335,3 @@ export async function getForums(): Promise<IForum[]> {
   const result = await pool.query(query);
   return result.rows;
 }
-
-

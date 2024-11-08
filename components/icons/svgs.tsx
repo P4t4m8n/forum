@@ -96,3 +96,90 @@ export const DiscussionsSvg = () => {
     </svg>
   );
 };
+
+export const EnvelopeSvg = () => {
+  return (
+    <svg viewBox="0 0 64.824 64.824" className="stroke-white fill-none w-4 h-4">
+      <g id="SVGRepo_iconCarrier">
+        {" "}
+        <g id="old_envelop" transform="translate(-372 0.824)">
+          {" "}
+          <path
+            d="M382,46h34a8,8,0,0,0,0,16H382a8,8,0,0,1,0-16"
+            opacity="0.3"
+          ></path>{" "}
+          <line
+            x2="34"
+            transform="translate(376 49)"
+            strokeMiterlimit="10"
+            strokeWidth="2"
+            opacity="0.5"
+          ></line>{" "}
+          <line
+            x2="34"
+            transform="translate(376 59)"
+            fill="none"
+            stroke-miterlimit="10"
+            stroke-width="2"
+            opacity="0.5"
+          ></line>{" "}
+          <path
+            d="M382,46h34a8,8,0,0,0,0,16H382a8,8,0,0,1,0-16"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="4"
+          ></path>{" "}
+          <path
+            d="M424,23V54a8,8,0,0,1-8,8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="4"
+          ></path>{" "}
+          <path
+            d="M383,46V2h41V6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="4"
+          ></path>{" "}
+          <line
+            y1="32.639"
+            x2="36.548"
+            transform="translate(397.452 2)"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="4"
+          ></line>{" "}
+          <path
+            d="M423.585,23.367c3.708-3.311,5.94-17.37,5.94-17.37S415.3,6.63,411.6,9.941a9,9,0,0,0,11.989,13.426Z"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="4"
+          ></path>{" "}
+          <line
+            y1="9.884"
+            x2="0.559"
+            transform="translate(416.845 7.437)"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          ></line>{" "}
+          <line
+            x2="9.884"
+            y2="0.559"
+            transform="translate(416.845 17.32)"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          ></line>{" "}
+          <line
+            y1="20"
+            transform="translate(390 2)"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          ></line>{" "}
+        </g>{" "}
+      </g>
+    </svg>
+  );
+};

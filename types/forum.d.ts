@@ -5,6 +5,10 @@ interface IForumBase extends IEntity {
   createdAt?: Date;
 }
 
+declare interface IForumSmall extends IForumBase {
+  threads: IThreadSmall[];
+  totalPosts: number;
+}
 declare interface IForum extends IForumBase {
   admins: IUserSmall[];
   threads: IThread[];

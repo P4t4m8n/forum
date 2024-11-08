@@ -2,7 +2,7 @@ import ForumList from "./ForumList";
 import ForumActions from "./ForumActions";
 
 interface Props {
-  forums: IForum[];
+  forums: IForumSmall[];
 }
 
 const ForumIndex = ({ forums }: Props) => {
