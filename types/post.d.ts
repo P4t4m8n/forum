@@ -29,6 +29,6 @@ declare interface IPostFilter extends IEntity {
   forumTitle?: string;
   authorName?: string;
   page?: number;
-  limit?: number;
+  pageSize?: number;
   uniqueView?: number;
 }

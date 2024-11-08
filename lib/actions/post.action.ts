@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use server";
 import { redirect } from "next/navigation";
 import pool from "../database/config";
@@ -15,7 +14,14 @@ export const getPostById = async (postId: string) => {
   }
 };
 
-export const getPosts = async (filter: IPostFilter) => {};
+export const getPosts = async (filter: IPostFilter) => {
+  const { page, pageSize } = filter;
+  const offset = ((page || 1) - 1) * (pageSize || 10);
+
+  const query = ` SELECT * FROM posts ORDER BY created_at DESC LIMIT $3 OFFSET $4;`;
+  const posts = await pool.query(query, [pageSize, offset]);
+  return posts.rows;
+};
 
 export const savePost = async (formData: FormData) => {
   try {
@@ -76,7 +82,14 @@ export const updatePost = async (dto: IPostDto): Promise<IPost> => {
   }
 };
 
-export const deletePost = async (postId: string) => {};
+export const deletePost = async (postId: string) => {
+  try {
+    const query = ` DELETE FROM posts WHERE id = $1;`;
+    await pool.query(query, [postId]);
+  } catch (error) {
+    throw error;
+  }
+};
 export async function getPinnedPosts(forumId: string) {
   const query = `
       SELECT json_build_object(
@@ -121,7 +134,6 @@ export async function getPinnedPosts(forumId: string) {
   const result = await pool.query(query, [forumId]);
   return result.rows.map((row) => row.json_build_object);
 }
-
 export async function getNonPinnedPostsPaginated(
   forumId: string,
   page: number = 1,
