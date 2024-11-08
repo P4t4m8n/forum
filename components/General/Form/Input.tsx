@@ -15,6 +15,7 @@ export default function Input({ field }: Props) {
         defaultValue={defaultValue as string | number}
         placeholder={placeholder}
         {...rest}
+        
       />
     </div>
   );

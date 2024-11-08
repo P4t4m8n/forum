@@ -15,6 +15,5 @@ export default async function page({
     threadId === "new"
       ? threadService.getEmpty()
       : await getThreadById(threadId);
-  console.log("thread:", thread);
   return <div>page</div>;
 }

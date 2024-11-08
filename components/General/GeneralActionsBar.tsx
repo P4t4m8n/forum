@@ -12,7 +12,7 @@ interface Props {
   };
   type: string;
 }
-export const GeneralActionsBar = ({ newItem, editItem, type }: Props) => {
+ const GeneralActionsBar = ({ newItem, editItem, type }: Props) => {
   return (
     <header className="flex items-center justify-between p-2">
       <GeneralFilter type={type} />
@@ -23,3 +23,5 @@ export const GeneralActionsBar = ({ newItem, editItem, type }: Props) => {
     </header>
   );
 };
+
+export default GeneralActionsBar;

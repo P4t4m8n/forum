@@ -1,10 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use server";
 
 import pool from "../database/config";
 
-export const getThreads = async (
-  filter: IThreadFilter
-): Promise<IThread[]> => {};
+export const getThreads = async (filter: IThreadFilter) => {};
 
 export const getThreadById = async (id: string): Promise<IThread> => {
   const query = `
@@ -62,10 +61,10 @@ export const getThreadById = async (id: string): Promise<IThread> => {
   return thread.rows[0];
 };
 
-export const saveThread = async (formData: FormData): Promise<IThread> => {};
+export const saveThread = async (formData: FormData) => {};
 
 export const removeThread = async (id: string): Promise<void> => {};
 
-export const createThread = async (dto: IThreadDto): Promise<IThread> => {};
+export const createThread = async (dto: IThreadDto) => {};
 
-export const updateThread = async (dto: IThreadDto): Promise<IThread> => {};
+export const updateThread = async (dto: IThreadDto) => {};

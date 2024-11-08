@@ -119,8 +119,8 @@ export const EnvelopeSvg = () => {
             x2="34"
             transform="translate(376 59)"
             fill="none"
-            stroke-miterlimit="10"
-            stroke-width="2"
+            strokeMiterlimit="10"
+            strokeWidth="2"
             opacity="0.5"
           ></line>{" "}
           <path

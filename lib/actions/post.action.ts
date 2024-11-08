@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use server";
+import { redirect } from "next/navigation";
 import pool from "../database/config";
+import { sanitizePostForm } from "../sanitize/post.sanitize";
+import { validatePostDto } from "../validations/post.validation";
 
 export const getPostById = async (postId: string) => {
   try {
@@ -15,12 +18,63 @@ export const getPostById = async (postId: string) => {
 export const getPosts = async (filter: IPostFilter) => {};
 
 export const savePost = async (formData: FormData) => {
-  console.log("formData:", formData);
+  try {
+    const dto = sanitizePostForm(formData);
+    const errors = validatePostDto(dto);
+    if (
+      errors.title ||
+      errors.content ||
+      errors.authorId ||
+      errors.forumId ||
+      errors.threadId
+    ) {
+      throw errors;
+    }
+
+    const post = dto.id ? await updatePost(dto) : await createPost(dto);
+
+    redirect(`/forum/${dto.forumId}/thread/${dto.threadId}/post/${post?.id}`);
+  } catch (error) {
+    throw error;
+  }
 };
 
-export const createPost = async (dto: IPostDto) => {};
+export const createPost = async (dto: IPostDto): Promise<IPost> => {
+  try {
+    const { title, content, authorId, threadId } = dto;
 
-export const updatePost = async (dto: IPostDto) => {};
+    const query = `
+      INSERT INTO posts (title, content, author_id, thread_id)
+      VALUES ($1, $2, $3, $4)
+      RETURNING *;
+    `;
+
+    const post = await pool.query(query, [title, content, authorId, threadId]);
+
+    return post.rows[0];
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updatePost = async (dto: IPostDto): Promise<IPost> => {
+  try {
+    const { title, content, id } = dto;
+
+    const query = `
+      UPDATE posts
+      SET title = $1, content = $2
+      WHERE id = $3
+      RETURNING *;
+    `;
+
+    const post = await pool.query(query, [title, content, id]);
+
+    return post.rows[0];
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const deletePost = async (postId: string) => {};
 export async function getPinnedPosts(forumId: string) {
