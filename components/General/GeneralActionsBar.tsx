@@ -2,17 +2,24 @@ import { GeneralFilter } from "./GeneralFilter";
 import GeneralLink from "./GeneralLink";
 
 interface Props {
-  link: {
+  newItem: {
+    href: string;
+    children: React.ReactNode;
+  };
+  editItem: {
     href: string;
     children: React.ReactNode;
   };
   type: string;
 }
-export const GeneralActionsBar = ({ link, type }: Props) => {
+export const GeneralActionsBar = ({ newItem, editItem, type }: Props) => {
   return (
     <header className="flex items-center justify-between p-2">
       <GeneralFilter type={type} />
-      <GeneralLink href={link.href}>{link.children}</GeneralLink>
+      <nav className="flex items-center gap-2">
+        <GeneralLink href={editItem.href}>{editItem.children}</GeneralLink>
+        <GeneralLink href={newItem.href}>{newItem.children}</GeneralLink>
+      </nav>
     </header>
   );
 };

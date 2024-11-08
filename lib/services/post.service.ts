@@ -1,8 +1,8 @@
 import { userService } from "./user.service";
 
 const toDTO = (post: IPost): IPostDto => {
-  const { author, title, content, forumId } = post;
-  return { forumId, authorId: author.id!, title, content };
+  const { author, title, content, forumId, threadId } = post;
+  return { forumId, authorId: author.id!, title, content, threadId };
 };
 
 const getEmpty = (): IPost => {
@@ -12,6 +12,7 @@ const getEmpty = (): IPost => {
     author: userService.getEmpty(),
     tags: [],
     forumId: "",
+    threadId: "",
   };
 };
 

@@ -5,7 +5,7 @@ interface IPostBase extends IEntity {
   viewCount?: number;
   likeCount?: number;
   forumId: string;
-
+  threadId: string;
 }
 
 declare interface IPostSmall extends IPostBase {

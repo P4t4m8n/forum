@@ -1,7 +1,28 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use server";
-
 import pool from "../database/config";
 
+export const getPostById = async (postId: string) => {
+  try {
+    const query = ` SELECT * FROM posts WHERE id = $1;`;
+    const post = await pool.query(query, [postId]);
+    return post.rows[0];
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getPosts = async (filter: IPostFilter) => {};
+
+export const savePost = async (formData: FormData) => {
+  console.log("formData:", formData);
+};
+
+export const createPost = async (dto: IPostDto) => {};
+
+export const updatePost = async (dto: IPostDto) => {};
+
+export const deletePost = async (postId: string) => {};
 export async function getPinnedPosts(forumId: string) {
   const query = `
       SELECT json_build_object(
@@ -95,5 +116,5 @@ export async function getNonPinnedPostsPaginated(
     `;
 
   const result = await pool.query(query, [forumId, pageSize, offset]);
-  return result.rows.map((row) => row.json_build_object); 
+  return result.rows.map((row) => row.json_build_object);
 }

@@ -13,14 +13,6 @@ interface DynamicFormProps {
 }
 
 const GeneralForm: React.FC<DynamicFormProps> = ({ schema, onSubmit }) => {
-  // const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(e.currentTarget);
-  //   if (onSubmit) {
-  //     onSubmit(formData);
-  //   }
-  // };
-
   const renderField = (field: Field) => {
     const { type } = field;
 
