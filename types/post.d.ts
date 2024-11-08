@@ -4,6 +4,8 @@ interface IPostBase extends IEntity {
   createdAt?: Date;
   viewCount?: number;
   likeCount?: number;
+  forumId: string;
+
 }
 
 declare interface IPostSmall extends IPostBase {
@@ -17,11 +19,10 @@ declare interface IPost extends IPostSmall {
   updatedAt?: Date;
   commentsAmount?: number;
 }
-declare interface IPostDto extends IPostSmall {
+declare interface IPostDto extends IPostBase {
   createdAt?: Date;
   updatedAt?: Date;
   authorId: string;
-  forumId: string;
 }
 declare interface IPostFilter extends IEntity {
   title?: string;

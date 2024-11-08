@@ -2,6 +2,8 @@ interface IThreadBase extends IEntity {
   title: string;
   description: string;
   createdAt?: Date;
+  forumId: string;
+
 }
 
 declare interface IThreadSmall extends IThreadBase {
@@ -10,14 +12,13 @@ declare interface IThreadSmall extends IThreadBase {
   viewedPost: IPostSmall | null;
   postCount: number | null;
   likeCount: number | null;
-  forumId: string;
 }
 declare interface IThread extends IThreadBase {
-  admins: IUserSmall[];
+  moderators: IUserSmall[];
   posts: IPost[];
 }
 declare interface IThreadDto extends IThreadBase {
-  admins: string[];
+  moderators: string[];
   updatedAt?: Date;
 }
 declare interface IThreadFilter extends IEntity {

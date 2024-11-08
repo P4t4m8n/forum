@@ -9,6 +9,7 @@ const getEmpty = (): IForum => ({
   type: "discussions",
   admins: [],
   threads: [],
+  totalPosts: 0,
 });
 
 export const forumService: TServiceConfig<IForum, IForumDto> = {
