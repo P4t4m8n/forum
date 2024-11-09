@@ -1,4 +1,4 @@
-import { getForumById } from "@/lib/actions/forum.actions";
+import { getForumById } from "@/lib/actions/forum.action";
 
 export default async function ForumDetailsServer({
   params,

@@ -1,5 +1,5 @@
 import ThreadDetailsIndex from "@/components/ThreadIndex/ThreadDetails/ThreadDetailsIndex";
-import { getThreadById } from "@/lib/actions/thread.actions";
+import { getThreadById } from "@/lib/actions/thread.action";
 
 export default async function ThreadDetailsServer({
   params,

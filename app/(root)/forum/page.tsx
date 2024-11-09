@@ -1,4 +1,4 @@
-import { getForums } from "@/lib/actions/forum.actions";
+import { getForums } from "@/lib/actions/forum.action";
 
 import ForumIndex from "@/components/ForumIndex/ForumIndex";
 

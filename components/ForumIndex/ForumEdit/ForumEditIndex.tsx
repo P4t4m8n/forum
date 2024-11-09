@@ -1,7 +1,7 @@
 "use client";
 
 import GeneralForm from "@/components/General/GeneralForm";
-import { saveForum } from "@/lib/actions/forum.actions";
+import { saveForum } from "@/lib/actions/forum.action";
 import Image from "next/image";
 // import { useState } from "react";
 

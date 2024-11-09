@@ -1,4 +1,4 @@
-import { getThreadById } from "@/lib/actions/thread.actions";
+import { getThreadById } from "@/lib/actions/thread.action";
 import { threadService } from "@/lib/services/thread.service";
 
 export async function generateStaticParams() {

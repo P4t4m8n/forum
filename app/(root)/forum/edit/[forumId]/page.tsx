@@ -1,6 +1,6 @@
 import ForumEditIndex from "@/components/ForumIndex/ForumEdit/ForumEditIndex";
-import { getForumById } from "@/lib/actions/forum.actions";
-import { getUsers } from "@/lib/actions/user.actions";
+import { getForumById } from "@/lib/actions/forum.action";
+import { getUsers } from "@/lib/actions/user.action";
 import { forumService } from "@/lib/services/forum.service";
 
 export async function generateStaticParams() {
