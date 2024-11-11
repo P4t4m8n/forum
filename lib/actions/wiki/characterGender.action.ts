@@ -1,17 +1,18 @@
 import pool from "@/lib/database/config";
 
-export async function createGender(gender: IGender): Promise<{ id: string }> {
+export async function createGender(gender: IGender): Promise<IGender> {
   const client = await pool.connect();
   try {
+    const { genderName } = gender;
     const query = `
         INSERT INTO genders (gender_name)
         VALUES ($1)
         RETURNING id
       `;
-    const values = [gender.genderName];
+    const values = [genderName];
 
     const res = await client.query(query, values);
-    return { id: res.rows[0].id };
+    return { id: res.rows[0].id, genderName };
   } catch (error) {
     throw error;
   } finally {

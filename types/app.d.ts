@@ -17,3 +17,4 @@ declare type TServiceConfig<T, DTO> = {
   toDTO: (data: T) => DTO;
   getEmpty: () => T;
 };
+

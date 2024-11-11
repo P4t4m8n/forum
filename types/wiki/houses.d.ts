@@ -42,6 +42,6 @@ declare interface IHouse extends IHouseSmall {
 declare interface IHouseDto extends IHouseSmall {
   sigil?: string;
   words?: string;
-  seatId?: string;
-  founderId?: string;
+  seatId?: string | null;
+  founderId?: string | null;
 }

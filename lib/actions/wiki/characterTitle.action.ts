@@ -181,3 +181,16 @@ export async function getCharacterTitles(
     client.release();
   }
 }
+
+export const getAllTitles = async () => {
+  try {
+    const query = `
+      SELECT *
+      FROM character_titles
+    `;
+    const res = await pool.query(query);
+    return res.rows;
+  } catch (error) {
+    throw error;
+  }
+};

@@ -31,5 +31,5 @@ declare interface IReligion extends IReligionSmall {
  * @property {string[]} characterIds - The IDs of the characters who follow the religion.
  */
 declare interface IReligionDto extends IReligionSmall {
-  characterIds: string[];
+  characterIds?: string[];
 }

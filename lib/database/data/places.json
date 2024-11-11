@@ -4,14 +4,14 @@
       "name": "Winterfell",
       "type": "Castle",
       "location": "The North",
-      "rulers": "House Stark"
+      "rulers": "Stark"
     },
     {
       "_id": "2",
       "name": "White Harbor",
       "type": "City",
       "location": "The North",
-      "rulers": "House Manderly"
+      "rulers": "Manderly"
     },
     {
       "_id": "3",
@@ -25,42 +25,42 @@
       "name": "King's Landing",
       "type": "City",
       "location": "The Crownlands",
-      "rulers": "House Targaryen"
+      "rulers": "Targaryen"
     },
     {
       "_id": "5",
       "name": "Casterly Rock",
       "type": "Castle",
       "location": "The Westernlands",
-      "rulers": "House Lannister"
+      "rulers": "Lannister"
     },
     {
       "_id": "6",
       "name": "Lannisport",
       "type": "City",
       "location": "The Westerlands",
-      "rulers": "House Lannister of Lannisport"
+      "rulers": "Lannister of Lannisport"
     },
     {
       "_id": "7",
       "name": "Highgarden",
       "type": "Castle",
       "location": "The Reach",
-      "rulers": "House Tyrell"
+      "rulers": "Tyrell"
     },
     {
       "_id": "8",
       "name": "Oldtown",
       "type": "City",
       "location": "The Reach",
-      "rulers": "House Hightower"
+      "rulers": "Hightower"
     },
     {
       "_id": "9",
       "name": "Riverrun",
       "type": "Castle",
       "location": "The Riverlands",
-      "rulers": "House Tully"
+      "rulers": "Tully"
     },
     {
       "_id": "10",
@@ -74,28 +74,28 @@
       "name": "Sunspear",
       "type": "Castle",
       "location": "Dorne",
-      "rulers": "House Martell"
+      "rulers": "Martell"
     },
     {
       "_id": "12",
       "name": "Water Gardens",
       "type": "Palace",
       "location": "Dorne",
-      "rulers": "House Martell"
+      "rulers": "Martell"
     },
     {
       "_id": "13",
       "name": "The Eyrie",
       "type": "Castle",
       "location": "The Vale",
-      "rulers": "House Arryn"
+      "rulers": "Arryn"
     },
     {
       "_id": "14",
       "name": "Storm's End",
       "type": "Castle",
       "location": "The Stormlands",
-      "rulers": "House Baratheon"
+      "rulers": "Baratheon"
     },
     {
       "_id": "15",

@@ -2,6 +2,7 @@
   "name": "forum",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -9,12 +10,13 @@
     "lint": "next lint",
     "test": "jest",
     "migrate": "node lib/database/scripts/createMigration.js",
-    "db:purge": "psql -U postgres -d forum -f lib/database/scripts/purge.sql",
-    "db:truncate": "psql -U postgres -d forum -f lib/database/scripts/truncate.sql",
+    "purge": "psql -U postgres -d forum -f lib/database/scripts/purge.sql",
+    "truncate": "psql -U postgres -d forum -f lib/database/scripts/truncate.sql",
     "db:migrate": "node lib/database/scripts/dbMigrate.js",
-    "db:seed": "psql -U postgres -d forum -f lib/database/scripts/seed.sql",
-    "db:reset": "npm run db:truncate && npm run db:purge && npm run db:create ",
-    "db:create": "psql -U postgres -d forum -f lib/database/schema.sql"
+    "seed": "node --loader ts-node/esm lib/database/seed.ts",
+    "reset": "npm run db:truncate && npm run db:purge && npm run db:create ",
+    "db:create": "psql -U postgres -d forum -f lib/database/schema.sql",
+    "wiki:create": "psql -U postgres -d forum -f lib/database/schemaWiki.sql"
   },
   "dependencies": {
     "next": "15.0.2",

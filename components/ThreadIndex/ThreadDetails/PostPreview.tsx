@@ -9,7 +9,6 @@ interface Props {
 }
 const PostPreview = ({ post, forumId, threadId }: Props) => {
   const { title, id, author, createdAt } = post;
-  console.log("post:", post);
 
   const formatData = datesUtil.formatDate(createdAt);
   return (

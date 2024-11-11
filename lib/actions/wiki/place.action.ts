@@ -1,33 +1,38 @@
 import pool from "@/lib/database/config";
 
-export async function createPlace(
-  placeDto: IPlaceDto
-): Promise<{ id: string }> {
+export async function createPlace(placeDto: IPlaceDto): Promise<IPlace> {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
 
     const insertPlaceQuery = `
-      INSERT INTO places (name, type_id, img_url, ruler_type, ruler_id, created_at)
-      VALUES ($1, $2, $3, $4, $5, NOW())
-      RETURNING id
+      INSERT INTO places (name, type_id, img_url)
+      VALUES ($1, $2, $3)
+      RETURNING *
     `;
 
     const values = [
-      placeDto.name,
-      placeDto.typeId || null,
-      placeDto.imgUrl || null,
-      placeDto.rulerType || null,
-      placeDto.rulerId || null,
+      placeDto?.name,
+      placeDto?.typeId || null,
+      placeDto?.imgUrl || null,
     ];
 
-    await client.query(insertPlaceQuery, values);
+    const res = await client.query(insertPlaceQuery, values);
+    const place = res.rows[0];
 
-    const res = await client.query("SELECT LASTVAL()");
-    const placeId = res.rows[0].lastval;
+    if (placeDto.rulerId) {
+      const placeRulerQuery = `INSERT INTO places_ruler_${
+        placeDto.rulerType === "house"
+          ? `house (house_id,place_id)`
+          : `character (character_id,place_id)`
+      } VALUES ($1, $2)`;
+
+      const rulerValues = [placeDto?.rulerId, place?.id];
+      await client.query(placeRulerQuery, rulerValues);
+    }
 
     await client.query("COMMIT");
-    return { id: placeId };
+    return place;
   } catch (error) {
     await client.query("ROLLBACK");
     throw error;
@@ -160,33 +165,14 @@ export async function deletePlace(id: string): Promise<{ message: string }> {
   }
 }
 
-export async function listPlaces(): Promise<IPlaceSmall[]> {
-  const client = await pool.connect();
+export async function getPlaces(): Promise<IPlaceSmall[]> {
   try {
-    const listQuery = `
-      SELECT
-        p.id,
-        p.name,
-        p.img_url,
-        pt.place_type_name AS type
-      FROM places p
-      LEFT JOIN place_types pt ON p.type_id = pt.id
-      ORDER BY p.name ASC
-    `;
+    const listQuery = `SELECT * FROM places `;
 
-    const res = await client.query(listQuery);
+    const res = await pool.query(listQuery);
 
-    const places: IPlaceSmall[] = res.rows.map((row) => ({
-      id: row.id,
-      name: row.name,
-      imgUrl: row.img_url,
-      type: row.type,
-    }));
-
-    return places;
+    return res.rows;
   } catch (error) {
     throw error;
-  } finally {
-    client.release();
   }
 }

@@ -2,7 +2,7 @@ import pool from "@/lib/database/config";
 
 export async function createCharacterStatus(
   status: ICharacterStatus
-): Promise<{ id: string }> {
+): Promise<ICharacterStatus> {
   const client = await pool.connect();
   try {
     const query = `

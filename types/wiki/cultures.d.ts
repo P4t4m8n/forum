@@ -31,5 +31,5 @@ declare interface ICulture extends ICultureSmall {
  * @property {string[]} characterIds - The IDs of the characters belonging to the culture.
  */
 declare interface ICultureDTO extends ICultureSmall {
-  characterIds: string[];
+  characterIds?: string[];
 }

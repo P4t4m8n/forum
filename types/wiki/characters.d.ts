@@ -1,5 +1,5 @@
 declare interface ICharacterSmall extends IEntity {
-  name: string;
+  name?: string;
   imgUrl?: string | null;
 }
 
@@ -27,23 +27,20 @@ declare interface ICharacter extends ICharacterSmall {
 }
 
 declare interface ICharacterDto extends ICharacterSmall {
-  genderId: string;
+  genderId?: string;
   originPlaceId?: string | null;
   born?: string | null;
   death?: string | null;
-  fatherId?: string | null;
-  motherId?: string | null;
-  spouseId?: string | null;
   actor?: string | null;
-  statusId: string;
-  seasons: number[];
-  createdAt: Date;
+  statusId?: string;
+  seasons?: number[];
+  createdAt?: Date;
   updatedAt?: Date | null;
-  titleIds: string[];
-  characterRelationships: ICharacterRelationship[];
-  housesIds: string[];
-  religionIds: string[];
-  cultureIds: string[];
+  titleIds?: string[];
+  characterRelationships?: ICharacterRelationship[];
+  housesIds?: string[];
+  religionIds?: string[];
+  cultureIds?: string[];
 }
 
 declare interface ICharacterRelationshipDto extends IEntity {

@@ -17,3 +17,14 @@ declare interface IRelationshipType extends IEntity {
 declare interface ITitle extends IEntity {
   titleName: string;
 }
+
+declare interface ILookupTable extends IEntity {
+  name: string;
+}
+
+declare type TLookupTableName =
+  | "genders"
+  | "titles"
+  | "place_types"
+  | "character_statuses"
+  | "relationship_types";

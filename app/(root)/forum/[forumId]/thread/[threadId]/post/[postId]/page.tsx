@@ -5,8 +5,6 @@ export default async function page({
 }) {
 
     const { postId, threadId, forumId } = await params;
-    console.log("forumId:", forumId)
-    console.log("threadId:", threadId)
-    console.log("postId:", postId)
+
   return <div>page</div>;
 }

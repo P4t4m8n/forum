@@ -1,14 +1,7 @@
-DROP TABLE IF EXISTS comments,
-posts,
-forum_admins,
-forums,
-types,
-forum_types,
-threads,
-thread_moderators,
-forum_views,
-post_views,
-comment_views,
-post_likes,
-comment_likes,
-users CASCADE;
+DO $$ DECLARE
+    row RECORD;
+BEGIN
+    FOR row IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
+        EXECUTE 'DROP TABLE IF EXISTS ' || quote_ident(row.tablename) || ' CASCADE';
+    END LOOP;
+END $$;
